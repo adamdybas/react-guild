@@ -1,17 +1,13 @@
 import React from 'react';
 
-class VideoItem extends React.Component {
-  onItemClick = () => {
-    this.props.onItemClick(this.props.item);
-  }
-
-  render(){
-    return(
-      <div onClick={this.onItemClick}>
-        Title: {this.props.item.snippet.title}
-      </div>
-    )
-  }
+const VideoItem = ({item, onItemClick}) => {
+  return(
+    <div className='item' onClick={() => onItemClick(item)}>
+      <img className='ui image' src={item.snippet.thumbnails.default.url}/>
+      <div className='header'>{item.snippet.title}</div>
+      <div className="ui divider"></div>
+    </div>
+  )
 }
 
 export default VideoItem;

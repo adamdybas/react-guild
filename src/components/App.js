@@ -2,24 +2,31 @@ import React from 'react';
 import SearchBar from './SearchBar.js';
 import VideoList from './VideoList.js'
 import VideoDetail from './VideoDetail.js'
-import axios from 'axios';
+import youtube from '../api/youtube.js';
 
 class App extends React.Component {
   state = {
     items: [],
-    selected_item: null
+    selectedItem: null
   };
 
+  componentDidMount() {
+    this.onChildSubmit('pug');
+  }
+
   onChildSubmit = async (term) => {
-    const res = await axios.get('https://www.googleapis.com/youtube/v3/search',{
+    const res = await youtube.get('/search',{
       params: { q: term, part: 'snippet', key: 'AIzaSyC84Jt9wdaPUTK7Wvj-NL9-7C6o3O5rY9o'}
     });
 
-    this.setState({items: res.data.items});
+    this.setState({
+      items: res.data.items,
+      selectedItem: res.data.items[0]
+    });
   }
 
   onItemClick = (item) => {
-    this.setState({selected_item: item});
+    this.setState({selectedItem: item});
   }
 
   render() {
@@ -29,7 +36,7 @@ class App extends React.Component {
         <div className="ui internally celled grid">
           <div className="row">
             <div className="ten wide column">
-              <VideoDetail item={this.state.selected_item} />
+              <VideoDetail item={this.state.selectedItem} />
             </div>
             <div className="three wide column">
               <VideoList items={this.state.items} onItemClick={this.onItemClick}/>

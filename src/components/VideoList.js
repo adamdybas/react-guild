@@ -1,12 +1,8 @@
 import React from 'react';
 import VideoItem from './VideoItem.js';
 
-const VideoList = (props) => {
-  const onItemClick = (item) => {
-    props.onItemClick(item);
-  }
-
-  const items = props.items.map(item =>{
+const VideoList = ({ items, onItemClick}) => {
+  const renderedItems = items.map(item =>{
     return (
       <VideoItem
         key={item.id.videoId}
@@ -17,8 +13,8 @@ const VideoList = (props) => {
   });
 
   return(
-    <div>
-      {items}
+    <div className='ui middle aligned list'>
+      {renderedItems}
     </div>
   )
 }
