@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
 
 const App = () => {
-  const [ activated, setActivated ] = useState({active: false});
+  const [ count, setCount ] = useState(0);
 
-  const onClick = () => {
-    setActivated({ active: !activated.active });
+  const onClick = (actionName) => {
+    if (actionName === 'increase') {
+      setCount(count+1);
+    } else if (actionName === 'decrease') {
+      setCount(count-1);
+    } else {
+      setCount(0);
+    }
   };
 
-  const buttonText = activated.active ? "ON" : "OFF";
+  const buttons = ['increase', 'decrease', 'reset'].map((name) => {
+    return <button onClick={() => onClick(name)}>{name}</button>
+  });
 
   return (
-    <button onClick={onClick}>{ buttonText }</button>
+    <div>
+      <h1>{count}</h1>
+      {buttons}
+    </div>
   );
 }
 
