@@ -1,27 +1,22 @@
 import React, { useState } from 'react';
 
 const App = () => {
-  const [ count, setCount ] = useState(0);
+  const [ state, setState ] = useState({city: '', country: ''});
 
-  const onClick = (actionName) => {
-    if (actionName === 'increase') {
-      setCount(count+1);
-    } else if (actionName === 'decrease') {
-      setCount(count-1);
-    } else {
-      setCount(0);
-    }
+  const onCityChange = (event) => {
+    setState({ ...state, city: event.target.value})
   };
 
-  const buttons = ['increase', 'decrease', 'reset'].map((name, i) => {
-    return <button key={i} onClick={() => onClick(name)}>{name}</button>
-  });
+  const onCountryChange = (event) => {
+    setState({ ...state, country: event.target.value})
+  };
 
   return (
-    <div>
-      <h1>{count}</h1>
-      {buttons}
-    </div>
+    <form>
+      <input type='text' placeholder='city' value={state.city} onChange={onCityChange}/>
+      <input type='text' placeholder='Country' value={state.country} onChange={onCountryChange}/>
+      You live in {state.city}, {state.country}
+    </form>
   );
 }
 
