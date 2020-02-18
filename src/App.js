@@ -13,8 +13,8 @@ const App = () => {
     }
   };
 
-  const buttons = ['increase', 'decrease', 'reset'].map((name) => {
-    return <button onClick={() => onClick(name)}>{name}</button>
+  const buttons = ['increase', 'decrease', 'reset'].map((name, i) => {
+    return <button key={i} onClick={() => onClick(name)}>{name}</button>
   });
 
   return (
